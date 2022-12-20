@@ -1,7 +1,130 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import RBSheet from "react-native-raw-bottom-sheet";
 
 const Withdrawal = () => {
+  const navigation = useNavigation();
+
+  const [selected, selectOption] = useState(1);
+  const beneficiaries = [
+    {
+      name: 'Ajalla Ugo',
+      number: '9102356712',
+      value: 1,
+      bank: ' Access bank',
+    },
+    {
+      name: 'Ajalla Ugo',
+      number: '9102356712',
+      value: 2,
+      bank: ' Access bank',
+    },
+  ];
+
+  const cards = [];
+
+  for (let index = 0; index < beneficiaries.length; index++) {
+    const element = beneficiaries[index];
+
+    const myStyle = {
+      height: 15,
+      width: 15,
+      backgroundColor: selected === element.value ? '#1293A9' : 'white',
+      borderRadius: 15,
+    };
+
+    const parentStyle = {
+      height: 78,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      width: '100%',
+      backgroundColor: selected === element.value ? '#E5F4F3' : '#f2f2f2',
+      borderRadius: 8,
+      paddingHorizontal: 20,
+    };
+
+    cards.push(
+      <TouchableOpacity
+        key={element.value}
+        onPress={() => selectOption(element.value)}>
+        <View style={parentStyle}>
+          <View
+            style={{
+              height: 15,
+              width: 15,
+              borderRadius: 12,
+              borderWidth: 2,
+              padding: 10,
+              borderColor: '#D3D0D9',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <View style={myStyle} />
+          </View>
+          <View
+            style={{
+              width: 10,
+            }}
+          />
+          <View
+            style={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'row',
+            }}>
+            <View
+              style={{
+                flex: 2,
+                display: 'flex',
+                flexDirection: 'column',
+              }}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: '500',
+                  color: '#616165',
+                }}>
+                {element.name}
+              </Text>
+              <View
+                style={{
+                  height: 3,
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: '400',
+                  color: '#656262',
+                }}>
+                {element.number}
+              </Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+              }}>
+              <Text>Bank</Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontWeight: '500',
+                  color: '#65656A',
+                }}>
+                {element.bank}
+              </Text>
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>,
+    );
+  }
+
   return (
     <View
       style={{
@@ -78,6 +201,8 @@ const Withdrawal = () => {
           borderRadius: 7,
           marginTop: 20,
           justifyContent: 'center',
+          borderWidth: 1,
+          borderColor: '#1293A9',
         }}>
         <Text
           style={{
@@ -92,11 +217,12 @@ const Withdrawal = () => {
       <View
         style={{
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'row',
           marginTop: 20,
           justifyContent: 'center',
         }}>
-        <Text style={{fontSize: 14, fontWeight: '500', color: '#767E80'}}>
+        <Text
+          style={{fontSize: 14, fontWeight: '500', color: '#767E80', flex: 1}}>
           Select Bank
         </Text>
         <View
@@ -120,20 +246,48 @@ const Withdrawal = () => {
           </Text>
         </View>
       </View>
+      {cards}
+      <TouchableOpacity onPress={() => navigation.navigate('Review')}>
+        <View
+          style={{
+            height: 43,
+            width: '100%',
+            backgroundColor: '#1293A9',
+            borderRadius: 7,
+            marginTop: 20,
+            justifyContent: 'center',
+            borderWidth: 1,
+            borderColor: '#1293A9',
+          }}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: '400',
+              color: '#ffffff',
+              textAlign: 'center',
+            }}>
+            Withdraw
+          </Text>
+        </View>
+      </TouchableOpacity>
       <View
         style={{
+          height: 43,
           width: '100%',
-          height: 78,
-          backgroundColor: '#E5F4F3',
+          backgroundColor: '#CCCCCC',
+          borderRadius: 7,
           marginTop: 20,
-          borderRadius: 7
+          justifyContent: 'center',
         }}>
-        <View style={{display: 'flex', flexDirection: 'column', paddingLeft: 13}}>
-          <Text style={{color: '#616165', fontSize: 18, fontWeight: '500'}}>
-            Ajalla Ugo
-          </Text>
-          <Text style={{color: '#616165', fontSize: 12, fontWeight: '400'}}>9102356712</Text>
-        </View>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: '400',
+            color: '#ffffff',
+            textAlign: 'center',
+          }}>
+          Cancel
+        </Text>
       </View>
     </View>
   );

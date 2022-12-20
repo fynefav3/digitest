@@ -202,9 +202,9 @@ const Wallet = () => {
       </View>
       <ScrollView
         style={{
-          display: 'flex',
+          // display: 'flex',
           width: '100%',
-          flexDirection: 'column',
+          // flexDirection: 'column',
           flex: 1,
           backgroundColor: '#f2f2f2',
           borderTopLeftRadius: 30,
@@ -212,11 +212,11 @@ const Wallet = () => {
           padding: 20,
         }}>
         <View
-          syle={{
+          style={{
+            display: 'flex',
             width: '100%',
-            height: 4,
-            // alignItems: 'center',
-            // justifyContent: 'center',
+            flexDirection: 'row',
+            justifyContent: 'center',
           }}>
           <View
             style={{
@@ -240,7 +240,7 @@ const Wallet = () => {
             See All
           </Text>
         </View>
-        <View style={{height: 20}} />
+        <View style={{height: 40}} />
         <View
           style={{
             display: 'flex',
