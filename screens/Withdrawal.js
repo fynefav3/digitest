@@ -1,10 +1,11 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import RBSheet from "react-native-raw-bottom-sheet";
+import React, {useState, useRef} from 'react';
+
+import RBSheet from 'react-native-raw-bottom-sheet';
+import Review from './Review';
 
 const Withdrawal = () => {
-  const navigation = useNavigation();
+  const refRBSheet = useRef();
 
   const [selected, selectOption] = useState(1);
   const beneficiaries = [
@@ -247,7 +248,7 @@ const Withdrawal = () => {
         </View>
       </View>
       {cards}
-      <TouchableOpacity onPress={() => navigation.navigate('Review')}>
+      <TouchableOpacity onPress={() => refRBSheet.current.open()}>
         <View
           style={{
             height: 43,
@@ -289,6 +290,24 @@ const Withdrawal = () => {
           Cancel
         </Text>
       </View>
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={false}
+        height={550}
+        customStyles={{
+          wrapper: {
+            backgroundColor: 'transparent',
+          },
+          draggableIcon: {
+            backgroundColor: '#000000',
+          },
+          container: {
+            borderRadius: 26,
+          },
+        }}>
+        <Review />
+      </RBSheet>
     </View>
   );
 };
